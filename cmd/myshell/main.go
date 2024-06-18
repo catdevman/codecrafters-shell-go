@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	allowedCommands := []string{"exit", "echo"}
+	allowedCommands := []string{"exit", "echo", "type"}
 	for {
 		// Uncomment this block to pass the first stage
 		fmt.Fprint(os.Stdout, "$ ")
@@ -30,6 +30,14 @@ func main() {
 			case "echo":
 				theRest := cmdPieces[1:]
 				fmt.Fprint(os.Stdout, strings.Join(theRest, " ")+"\n")
+				break
+			case "type":
+				c := cmdPieces[1]
+				if slices.Contains(allowedCommands, c) {
+					fmt.Fprintf(os.Stdout, "%s is a shell builtin", c)
+				} else {
+					fmt.Fprintf(os.Stdout, "%s: not found", c)
+				}
 				break
 			}
 		} else {
