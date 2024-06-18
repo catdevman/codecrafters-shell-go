@@ -34,9 +34,9 @@ func main() {
 			case "type":
 				c := cmdPieces[1]
 				if slices.Contains(allowedCommands, c) {
-					fmt.Fprintf(os.Stdout, "%s is a shell builtin", c)
+					fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", c)
 				} else {
-					fmt.Fprintf(os.Stdout, "%s: not found", c)
+					fmt.Fprintf(os.Stdout, "%s: not found\n", c)
 				}
 				break
 			}
