@@ -21,6 +21,6 @@ func main() {
 		}
 	}
 	if !found {
-		fmt.Fprintf(os.Stdout, "%s: command not found", command)
+		fmt.Fprint(os.Stdout, fmt.Sprintf(": command not found", command))
 	}
 }
