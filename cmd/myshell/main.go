@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"slices"
 	"strconv"
 	"strings"
@@ -38,7 +39,15 @@ func main() {
 				} else {
 					paths := strings.Split(os.Getenv("PATH"), ":")
 					for _, path := range paths {
+						fp := filepath.Join(path, os.Args[0])
 
+						if _, err := os.Stat(fp); err == nil {
+
+							fmt.Println(fp)
+
+							return
+
+						}
 					}
 					fmt.Fprintf(os.Stdout, "%s: not found\n", c)
 				}
