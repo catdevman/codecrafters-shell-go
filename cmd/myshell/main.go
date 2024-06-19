@@ -37,19 +37,21 @@ func main() {
 				if slices.Contains(allowedCommands, c) {
 					fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", c)
 				} else {
+					f := false
 					paths := strings.Split(os.Getenv("PATH"), ":")
 					for _, path := range paths {
-						fp := filepath.Join(path, os.Args[0])
+						fp := filepath.Join(path, c)
 
 						if _, err := os.Stat(fp); err == nil {
 
 							fmt.Println(fp)
-
-							return
+							f = true
 
 						}
 					}
-					fmt.Fprintf(os.Stdout, "%s: not found\n", c)
+					if !f {
+						fmt.Fprintf(os.Stdout, "%s: not found\n", c)
+					}
 				}
 				break
 			}
