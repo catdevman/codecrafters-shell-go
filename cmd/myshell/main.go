@@ -67,6 +67,9 @@ func main() {
 				if strings.HasPrefix(path, "./") {
 					begin, _ := os.Getwd()
 					path = begin + "/" + strings.ReplaceAll(path, "./", "")
+				} else if strings.HasPrefix(path, "~") {
+					home, _ := os.UserHomeDir()
+					path = home + "/" + strings.ReplaceAll(path, "~", "")
 				}
 
 				if strings.Contains(path, "../") {
