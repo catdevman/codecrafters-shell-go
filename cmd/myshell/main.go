@@ -36,6 +36,10 @@ func main() {
 				if slices.Contains(allowedCommands, c) {
 					fmt.Fprintf(os.Stdout, "%s is a shell builtin\n", c)
 				} else {
+					paths := strings.Split(os.Getenv("PATH"), ":")
+					for _, path := range paths {
+
+					}
 					fmt.Fprintf(os.Stdout, "%s: not found\n", c)
 				}
 				break
