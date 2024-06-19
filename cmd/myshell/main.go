@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	allowedCommands := []string{"exit", "echo", "type"}
+	allowedCommands := []string{"exit", "echo", "type", "pwd"}
 	for {
 		// Uncomment this block to pass the first stage
 		fmt.Fprint(os.Stdout, "$ ")
@@ -54,6 +54,13 @@ func main() {
 						fmt.Fprintf(os.Stdout, "%s: not found\n", c)
 					}
 				}
+				break
+			case "pwd":
+				cwd, err := os.Getwd()
+				if err != nil {
+					//TODO: Should probably do something here
+				}
+				fmt.Println(cwd)
 				break
 			}
 		} else {
