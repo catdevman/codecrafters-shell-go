@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	allowedCommands := []string{"exit", "echo", "type", "pwd"}
+	allowedCommands := []string{"exit", "echo", "type", "pwd", "cd"}
 	for {
 		// Uncomment this block to pass the first stage
 		fmt.Fprint(os.Stdout, "$ ")
@@ -61,6 +61,12 @@ func main() {
 					//TODO: Should probably do something here
 				}
 				fmt.Println(cwd)
+				break
+			case "cd":
+				err := os.Chdir(cmdPieces[1])
+				if err != nil {
+					fmt.Printf("cd: %s: No such file or directory\n", cmdPieces[1])
+				}
 				break
 			}
 		} else {
