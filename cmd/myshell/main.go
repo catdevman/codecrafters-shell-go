@@ -66,7 +66,7 @@ func main() {
 				path := cmdPieces[1]
 				if strings.HasPrefix(path, "./") {
 					begin, _ := os.Getwd()
-					path = begin + strings.ReplaceAll(path, "./", "")
+					path = begin + "/" + strings.ReplaceAll(path, "./", "")
 				}
 
 				if strings.Contains(path, "../") {
