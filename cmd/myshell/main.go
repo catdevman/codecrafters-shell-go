@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -63,7 +64,19 @@ func main() {
 				fmt.Println(cwd)
 				break
 			case "cd":
-				err := os.Chdir(cmdPieces[1])
+				path := cmdPieces[1]
+				if strings.HasPrefix(path, "./") {
+					begin, _ := os.Getwd()
+					path = begin + strings.ReplaceAll(path, "./", "")
+				}
+
+				if strings.Contains(path, "../") {
+					begin, _ := os.Getwd()
+					beginPieces := strings.Split(begin, "/")
+					count := strings.Count(path, "../")
+					path = strings.Join(beginPieces[:len(beginPieces)-count], "/")
+				}
+				err := os.Chdir(path)
 				if err != nil {
 					fmt.Printf("cd: %s: No such file or directory\n", cmdPieces[1])
 				}
